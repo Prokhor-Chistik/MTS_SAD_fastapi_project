@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.configurations.database import get_async_session
 from src.models.books import Book
-from src.schemas import IncomingBook, ReturnedAllBooks, ReturnedBook
+from src.schemas import IncomingBook, ReturnedAllBooks, ReturnedBook, ReturnedSeller
 
 books_router = APIRouter(tags=["books"], prefix="/books")
 

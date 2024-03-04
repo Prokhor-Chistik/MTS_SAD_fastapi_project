@@ -3,12 +3,15 @@ from pydantic_core import PydanticCustomError
 
 __all__ = ["IncomingBook", "ReturnedAllBooks", "ReturnedBook"]
 
+from .sellers import ReturnedSeller
+
 
 # Базовый класс "Книги", содержащий поля, которые есть во всех классах-наследниках.
 class BaseBook(BaseModel):
     title: str
     author: str
     year: int
+    seller_id: int
 
 
 # Класс для валидации входящих данных. Не содержит id так как его присваивает БД.
@@ -31,6 +34,7 @@ class IncomingBook(BaseBook):
 class ReturnedBook(BaseBook):
     id: int
     count_pages: int
+    seller: ReturnedSeller
 
 
 # Класс для возврата массива объектов "Книга"

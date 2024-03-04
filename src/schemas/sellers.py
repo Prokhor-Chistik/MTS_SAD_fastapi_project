@@ -3,6 +3,8 @@ from pydantic_core import PydanticCustomError
 
 __all__ = ["IncomingSeller", "ReturnedAllSellers", "ReturnedSeller"]
 
+from .books import ReturnedBook
+
 
 # Базовый класс "Продавец", содержащий поля, которые есть во всех классах-наследниках.
 class BaseSeller(BaseModel):
@@ -34,6 +36,7 @@ class IncomingSeller(BaseSeller):
 class ReturnedSeller(BaseSeller):
     id: int
     e_mail: str
+    books: list[ReturnedBook]
 
 
 # Класс для возврата массива объектов "Продавец"

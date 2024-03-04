@@ -6,8 +6,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.configurations.database import get_async_session
-from src.models.sellers import Seller
-from src.schemas import IncomingSeller, ReturnedSeller, ReturnedAllSellers, ReturnedBook
+from src.models.books_sellers import Seller
+from src.schemas import IncomingSeller, ReturnedSeller, ReturnedAllSellers, ReturnedSellerWithBooks
 
 sellers_router = APIRouter(tags=["sellers"], prefix="/sellers")
 
@@ -25,17 +25,17 @@ async def create_seller(
         first_name=seller.first_name,
         last_name=seller.last_name,
         password=seller.password,
-        e_mail=seller.e_mail,
+        email=seller.email,
     )
+    # new_seller_wo_pass = Seller(
+    #     first_name=seller.first_name,
+    #     last_name=seller.last_name,
+    #     email=seller.email,
+    # )
     session.add(new_seller)
     await session.flush()
-
-    new_seller_wo_pass = Seller(
-        first_name=seller.first_name,
-        last_name=seller.last_name,
-        e_mail=seller.e_mail,
-    )
-    return new_seller_wo_pass
+    #return new_seller_wo_pass
+    return new_seller
 
 
 # Ручка, возвращающая данные о всех Продавцах
@@ -50,7 +50,7 @@ async def get_all_sellers(session: DBSession):
 
 
 # Ручка для получения информации о Продавце по его ID
-@sellers_router.get("/{seller_id}", response_model=ReturnedSeller)
+@sellers_router.get("/{seller_id}", response_model=ReturnedSellerWithBooks)
 async def get_seller(seller_id: int, session: DBSession):
     res = await session.get(Seller, seller_id)
     return res
@@ -74,7 +74,7 @@ async def update_seller(seller_id: int, new_data: IncomingSeller, session: DBSes
     if updated_seller := await session.get(Seller, seller_id):
         updated_seller.first_name = new_data.first_name
         updated_seller.last_name = new_data.last_name
-        updated_seller.e_mail = new_data.e_mail
+        updated_seller.email = new_data.email
         updated_seller.password = new_data.password
 
         await session.flush()

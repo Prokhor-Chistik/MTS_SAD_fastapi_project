@@ -4,15 +4,39 @@
 # Tunder Client не позволяет свободно импортировать-экспортировать записи,
 # поэтому перешел на этот плагин. Он тоже хорош :-)
 
+# Создаем Продавца
+POST http://localhost:8000/api/v1/sellers/ HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "Semen",
+    "last_name": "Semenov",
+    "password": "104aaa",
+    "email": "sss@mts.ru"
+}
+
+###
+
+# Получаем информацию о Продавце по его ИД
+GET http://localhost:8000/api/v1/sellers/2 HTTP/1.1
+
+###
+
+# Получаем список Продавцов
+GET http://localhost:8000/api/v1/sellers/ HTTP/1.1
+
+###
+
 # Создаем книгу
 POST http://localhost:8000/api/v1/books/ HTTP/1.1
 content-type: application/json
 
 {
-    "title": "Wrong Code",
+    "title": "Clean Code",
     "author": "Robert Martin",
-    "pages": 104,
-    "year": 2007
+    "pages": 121,
+    "year": 2008,
+    "seller_id": 1
 }
 
 ###
@@ -32,10 +56,11 @@ PUT http://localhost:8000/api/v1/books/1 HTTP/1.1
 content-type: application/json
 
 {
-    "title": "Clean Code",
+    "title": "Code",
     "author": "Robert Martin",
-    "count_pages": 10,
-    "year": 2007,
+    "pages": 121,
+    "year": 2008,
+    "seller_id": 1
     "id": 0
 }
 
@@ -43,6 +68,25 @@ content-type: application/json
 
 # Удаляем книгу
 DELETE http://localhost:8000/api/v1/books/1 HTTP/1.1
+content-type: application/json
+
+###
+
+# Обновляем поля в данных о Продавце
+PUT http://localhost:8000/api/v1/sellers/1 HTTP/1.1
+content-type: application/json
+
+{
+    "first_name": "Ivan",
+    "last_name": "Ivanov",
+    "password": "104aaa",
+    "email": "iii@mts.ru"
+}
+
+###
+
+# Удаляем Продавца
+DELETE http://localhost:8000/api/v1/sellers/1 HTTP/1.1
 content-type: application/json
 
 ###

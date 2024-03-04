@@ -6,8 +6,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.configurations.database import get_async_session
-from src.models.books import Book
-from src.schemas import IncomingBook, ReturnedAllBooks, ReturnedBook, ReturnedSeller
+from src.models.books_sellers import Book
+from src.schemas import IncomingBook, ReturnedAllBooks, ReturnedBook
 
 books_router = APIRouter(tags=["books"], prefix="/books")
 
@@ -26,6 +26,7 @@ async def create_book(
         author=book.author,
         year=book.year,
         count_pages=book.count_pages,
+        seller_id = book.seller_id
     )
     session.add(new_book)
     await session.flush()
@@ -71,6 +72,7 @@ async def update_book(book_id: int, new_data: ReturnedBook, session: DBSession):
         updated_book.title = new_data.title
         updated_book.year = new_data.year
         updated_book.count_pages = new_data.count_pages
+        updated_book.seller_id = new_data.seller_id
 
         await session.flush()
 

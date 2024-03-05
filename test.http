@@ -9,16 +9,16 @@ POST http://localhost:8000/api/v1/sellers/ HTTP/1.1
 content-type: application/json
 
 {
-    "first_name": "Semen",
-    "last_name": "Semenov",
-    "password": "104aaa",
-    "email": "sss@mts.ru"
+    "first_name": "Anton",
+    "last_name": "Antonov",
+    "password": "104iii",
+    "email": "iii@mts.ru"
 }
 
 ###
 
 # Получаем информацию о Продавце по его ИД
-GET http://localhost:8000/api/v1/sellers/2 HTTP/1.1
+GET http://localhost:8000/api/v1/sellers/4 HTTP/1.1
 
 ###
 
@@ -32,10 +32,10 @@ POST http://localhost:8000/api/v1/books/ HTTP/1.1
 content-type: application/json
 
 {
-    "title": "Clean Code",
+    "title": "Code",
     "author": "Robert Martin",
-    "pages": 121,
-    "year": 2008,
+    "pages": 177,
+    "year": 2011,
     "seller_id": 1
 }
 
@@ -47,7 +47,7 @@ GET http://localhost:8000/api/v1/books/ HTTP/1.1
 ###
 
 # Получаем одну книгу по ее ИД
-GET http://localhost:8000/api/v1/books/1 HTTP/1.1
+GET http://localhost:8000/api/v1/books/4 HTTP/1.1
 
 ###
 
@@ -60,25 +60,24 @@ content-type: application/json
     "author": "Robert Martin",
     "pages": 121,
     "year": 2008,
-    "seller_id": 1
-    "id": 0
+    "seller_id": 6
 }
 
 ###
 
 # Удаляем книгу
-DELETE http://localhost:8000/api/v1/books/1 HTTP/1.1
+DELETE http://localhost:8000/api/v1/books/3 HTTP/1.1
 content-type: application/json
 
 ###
 
 # Обновляем поля в данных о Продавце
-PUT http://localhost:8000/api/v1/sellers/1 HTTP/1.1
+PUT http://localhost:8000/api/v1/sellers/3 HTTP/1.1
 content-type: application/json
 
 {
     "first_name": "Ivan",
-    "last_name": "Ivanov",
+    "last_name": "Ivanov-Petrov",
     "password": "104aaa",
     "email": "iii@mts.ru"
 }

@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.configurations.database import get_async_session
 from src.models.books_sellers import Seller
-from src.schemas import IncomingSeller, ReturnedSeller, ReturnedAllSellers, ReturnedSellerWithBooks
+from src.schemas import IncomingSeller, ReturnedSeller, ReturnedAllSellers, ReturnedSellerWithBooks, ReturnedSellerWoPass
 
 sellers_router = APIRouter(tags=["sellers"], prefix="/sellers")
 
@@ -16,7 +16,7 @@ DBSession = Annotated[AsyncSession, Depends(get_async_session)]
 
 
 # Ручка для создания записи о Продавце в БД. Возвращает информацию о Продавце.
-@sellers_router.post("/", response_model=ReturnedSeller, status_code=status.HTTP_201_CREATED)  # Прописываем модель ответа
+@sellers_router.post("/", response_model=ReturnedSellerWoPass, status_code=status.HTTP_201_CREATED)  # Прописываем модель ответа
 async def create_seller(
     seller: IncomingSeller, session: DBSession
 ):  # прописываем модель валидирующую входные данные и сессию как зависимость.
@@ -27,14 +27,8 @@ async def create_seller(
         password=seller.password,
         email=seller.email,
     )
-    # new_seller_wo_pass = Seller(
-    #     first_name=seller.first_name,
-    #     last_name=seller.last_name,
-    #     email=seller.email,
-    # )
     session.add(new_seller)
     await session.flush()
-    #return new_seller_wo_pass
     return new_seller
 
 

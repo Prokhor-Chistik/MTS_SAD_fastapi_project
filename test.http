@@ -9,8 +9,8 @@ POST http://localhost:8000/api/v1/sellers/ HTTP/1.1
 content-type: application/json
 
 {
-    "first_name": "Anton",
-    "last_name": "Antonov",
+    "first_name": "Ivan",
+    "last_name": "Ivanov",
     "password": "104iii",
     "email": "iii@mts.ru"
 }
@@ -18,7 +18,7 @@ content-type: application/json
 ###
 
 # Получаем информацию о Продавце по его ИД
-GET http://localhost:8000/api/v1/sellers/4 HTTP/1.1
+GET http://localhost:8000/api/v1/sellers/1 HTTP/1.1
 
 ###
 
@@ -32,11 +32,11 @@ POST http://localhost:8000/api/v1/books/ HTTP/1.1
 content-type: application/json
 
 {
-    "title": "Code",
+    "title": "Simple Code",
     "author": "Robert Martin",
     "pages": 177,
     "year": 2011,
-    "seller_id": 1
+    "seller_id": 2
 }
 
 ###
@@ -85,7 +85,7 @@ content-type: application/json
 ###
 
 # Удаляем Продавца
-DELETE http://localhost:8000/api/v1/sellers/1 HTTP/1.1
+DELETE http://localhost:8000/api/v1/sellers/2 HTTP/1.1
 content-type: application/json
 
 ###

@@ -3,7 +3,7 @@ from pydantic_core import PydanticCustomError
 
 __all__ = [
     "IncomingBook", "ReturnedAllBooks", "ReturnedBook",
-    "IncomingSeller", "ReturnedAllSellers", "ReturnedSeller", "ReturnedSellerWithBooks"
+    "IncomingSeller", "ReturnedAllSellers", "ReturnedSeller", "ReturnedSellerWithBooks", "ReturnedSellerWoPass"
 ]
 
 
@@ -72,16 +72,19 @@ class IncomingSeller(BaseSeller):
 # Класс, валидирующий исходящие данные. Он уже содержит id
 class ReturnedSeller(BaseSeller):
     id: int
+    email: str
     password: str
+
+# Класс, исходящих данных без пароля
+class ReturnedSellerWoPass(BaseSeller):
+    id: int
     email: str
 
-
-
 # Класс, исходящих данных с данными по книгам
-class ReturnedSellerWithBooks(ReturnedSeller):
+class ReturnedSellerWithBooks(ReturnedSellerWoPass):
     books: list["ReturnedBook"]
 
 
 # Класс для возврата массива объектов "Продавец"
 class ReturnedAllSellers(BaseModel):
-    sellers: list[ReturnedSeller]
+    sellers: list[ReturnedSellerWoPass]

@@ -15,7 +15,7 @@ result = {
 # Тест на ручку создающую книгу
 @pytest.mark.asyncio
 async def test_create_book(db_session, async_client):
-    # Создаем автора вручную, а не через ручку, чтобы нам не попасться на ошибку которая
+    # Создаем Продавца вручную, а не через ручку, чтобы нам не попасться на ошибку которая
     # может случиться в POST ручке
 
     _seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")
@@ -47,7 +47,7 @@ async def test_create_book(db_session, async_client):
 # Тест на ручку получения списка книг
 @pytest.mark.asyncio
 async def test_get_books(db_session, async_client):
-    # Создаем автора и книги вручную, а не через ручки, чтобы нам не попасться на ошибки которые
+    # Создаем Продавца и книги вручную, а не через ручки, чтобы нам не попасться на ошибки которые
     # могут случиться в POST ручках
 
     _seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")
@@ -77,7 +77,7 @@ async def test_get_books(db_session, async_client):
 # Тест на ручку получения одной книги
 @pytest.mark.asyncio
 async def test_get_single_book(db_session, async_client):
-    # Создаем автора и книги вручную, а не через ручку, чтобы нам не попасться на ошибки которые
+    # Создаем Продавца и книги вручную, а не через ручку, чтобы нам не попасться на ошибки которые
     # могут случиться в POST ручках
     
     _seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")
@@ -107,7 +107,7 @@ async def test_get_single_book(db_session, async_client):
 # Тест на ручку удаления книги
 @pytest.mark.asyncio
 async def test_delete_book(db_session, async_client):
-    # Создаем автора и книгу вручную, а не через ручку, чтобы нам не попасться на ошибки которые
+    # Создаем Продавца и книгу вручную, а не через ручку, чтобы нам не попасться на ошибки которые
     # могут случиться в POST ручках
     
     _seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")
@@ -131,7 +131,7 @@ async def test_delete_book(db_session, async_client):
 # Тест на ручку обновления книги
 @pytest.mark.asyncio
 async def test_update_book(db_session, async_client):
-    # Создаем автора и книгу вручную, а не через ручку, чтобы нам не попасться на ошибки которые
+    # Создаем Продавца и книгу вручную, а не через ручку, чтобы нам не попасться на ошибки которые
     # могут случиться в POST ручках
     
     _seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")

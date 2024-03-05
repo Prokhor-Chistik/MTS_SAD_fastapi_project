@@ -14,6 +14,7 @@ from src.configurations.settings import settings
 from src.models import books_sellers  # noqa
 from src.models.base import BaseModel
 from src.models.books_sellers import Book  # noqa F401
+from src.models.books_sellers import Seller  # noqa F401
 
 # Переопределяем движок для запуска тестов и подключаем его к тестовой базе.
 # Это решает проблему с сохранностью данных в основной базе приложения.

@@ -12,7 +12,7 @@ class Seller(BaseModel):
     email: Mapped[str] = mapped_column(String(50), nullable=False)
     password: Mapped[str] = mapped_column(String(50), nullable=False)
 
-    books: Mapped[list["Book"]] = relationship(back_populates="seller", lazy="selectin")
+    books: Mapped[list["Book"]] = relationship(back_populates="seller", lazy="selectin", cascade="all, delete-orphan")
 
 
 class Book(BaseModel):
@@ -23,6 +23,6 @@ class Book(BaseModel):
     author: Mapped[str] = mapped_column(String(100), nullable=False)
     year: Mapped[int]
     count_pages: Mapped[int]
-    seller_id: Mapped[int] = mapped_column(ForeignKey("sellers_table.id", ondelete="CASCADE"))
+    seller_id: Mapped[int] = mapped_column(ForeignKey(Seller.id, ondelete="CASCADE"))
 
     seller: Mapped["Seller"] = relationship(back_populates="books", lazy="selectin")

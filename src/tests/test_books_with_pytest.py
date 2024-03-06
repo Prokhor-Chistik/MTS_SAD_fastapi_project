@@ -137,7 +137,7 @@ async def test_update_book(db_session, async_client):
 
     response = await async_client.put(
         f"/api/v1/books/{book.id}",
-        json={"title": "Mziri", "author": "Lermontov", "count_pages": 100, "year": 2007, "seller_id": _seller.id, "book_id": book.id},
+        json={"title": "Mziri", "author": "Lermontov", "count_pages": 100, "year": 2007, "seller_id": _seller.id},
     )
     assert response.status_code == status.HTTP_200_OK
     await db_session.flush()

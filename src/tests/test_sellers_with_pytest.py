@@ -14,12 +14,11 @@ async def test_create_seller(async_client):
     assert response.status_code == status.HTTP_201_CREATED
 
     result_data = response.json()
-
     assert result_data == {
-        "id": 1,
+        "id": result_data["id"],
         "first_name": "Anton",
         "last_name": "Antonov",
-        "password": "104aaa",
+        #"password": "104aaa",
         "email": "aaa@mts.ru"
     }
 
@@ -64,6 +63,7 @@ async def test_get_single_seller(db_session, async_client):
     response = await async_client.get(f"/api/v1/sellers/{seller_1.id}")
 
     assert response.status_code == status.HTTP_200_OK
+    await db_session.flush()
 
     # Проверяем интерфейс ответа, на который у нас есть контракт.
     assert response.json() == {

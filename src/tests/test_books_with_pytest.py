@@ -4,13 +4,6 @@ from sqlalchemy import select
 
 from src.models import books_sellers
 
-result = {
-    "books": [
-        {"author": "fdhgdh", "title": "jdhdj", "year": 1997},
-        {"author": "fdhgdfgfrh", "title": "jrrgdhdj", "year": 2001},
-    ]
-}
-
 
 # Тест на ручку создающую книгу
 @pytest.mark.asyncio
@@ -144,9 +137,8 @@ async def test_update_book(db_session, async_client):
 
     response = await async_client.put(
         f"/api/v1/books/{book.id}",
-        json={"title": "Mziri", "author": "Lermontov", "count_pages": 100, "year": 2007, "id": book.id},
+        json={"title": "Mziri", "author": "Lermontov", "count_pages": 100, "year": 2007, "seller_id": _seller.id, "book_id": book.id},
     )
-
     assert response.status_code == status.HTTP_200_OK
     await db_session.flush()
 
@@ -156,4 +148,5 @@ async def test_update_book(db_session, async_client):
     assert res.author == "Lermontov"
     assert res.count_pages == 100
     assert res.year == 2007
+    assert res.seller_id == _seller.id
     assert res.id == book.id

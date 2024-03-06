@@ -62,7 +62,7 @@ async def delete_seller(seller_id: int, session: DBSession):
 
 
 # Ручка для обновления данных о Продавце
-@sellers_router.put("/{seller_id}")
+@sellers_router.put("/{seller_id}", response_model=ReturnedSellerWoPass)
 async def update_seller(seller_id: int, new_data: IncomingSeller, session: DBSession):
     # Оператор "морж", позволяющий одновременно и присвоить значение и проверить его.
     if updated_seller := await session.get(Seller, seller_id):
@@ -73,6 +73,6 @@ async def update_seller(seller_id: int, new_data: IncomingSeller, session: DBSes
 
         await session.flush()
 
-        return Response(status_code=status.HTTP_200_OK)
+        return updated_seller
 
     return Response(status_code=status.HTTP_404_NOT_FOUND)

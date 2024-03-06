@@ -64,7 +64,7 @@ async def delete_book(book_id: int, session: DBSession):
 
 
 # Ручка для обновления данных о книге
-@books_router.put("/{book_id}")
+@books_router.put("/{book_id}", response_model=ReturnedBook)
 async def update_book(book_id: int, new_data: IncomingBook, session: DBSession):
     # Оператор "морж", позволяющий одновременно и присвоить значение и проверить его.
     if updated_book := await session.get(Book, book_id):

@@ -43,8 +43,8 @@ async def test_get_sellers(db_session, async_client):
     # Проверяем интерфейс ответа, на который у нас есть контракт.
     assert response.json() == {
         "sellers": [
-            {"first_name": "Anton", "last_name": "Antonov", "password": "104aaa", "email": "aaa@mts.ru", "id": seller_1.id},
-            {"first_name": "Ivan", "last_name": "Ivanov", "password": "104iii", "email": "iii@mts.ru", "id": seller_2.id}
+            {"first_name": "Anton", "last_name": "Antonov", "email": "aaa@mts.ru", "id": seller_1.id},
+            {"first_name": "Ivan", "last_name": "Ivanov", "email": "iii@mts.ru", "id": seller_2.id}
         ]
     }
 
@@ -63,13 +63,12 @@ async def test_get_single_seller(db_session, async_client):
     response = await async_client.get(f"/api/v1/sellers/{seller_1.id}")
 
     assert response.status_code == status.HTTP_200_OK
-    await db_session.flush()
 
     # Проверяем интерфейс ответа, на который у нас есть контракт.
     assert response.json() == {
         "first_name": "Anton",
         "last_name": "Antonov",
-        "password": "104aaa",
+        #"password": "104aaa",
         "email": "aaa@mts.ru",
         "id": seller_1.id
     }

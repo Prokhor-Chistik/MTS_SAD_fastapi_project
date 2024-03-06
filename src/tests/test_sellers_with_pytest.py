@@ -54,8 +54,8 @@ async def test_get_sellers(db_session, async_client):
 async def test_get_single_seller(db_session, async_client):
     # Создаем Продавцов вручную, а не через ручку, чтобы нам не попасться на ошибку которая
     # может случиться в POST ручке
-    seller_1 = books_sellers.Seller(first_name= "Anton", last_name= "Antonov", password= "104aaa", email= "aaa@mts.ru")
-    seller_2 = books_sellers.Seller(first_name= "Ivan", last_name= "Ivanov", password= "104iii", email= "iii@mts.ru")
+    seller_1 = books_sellers.Seller(first_name= "Anton", last_name= "Antonov", password= "104aaa", email= "aaa@mts.ru", books= [])
+    seller_2 = books_sellers.Seller(first_name= "Ivan", last_name= "Ivanov", password= "104iii", email= "iii@mts.ru", books= [])
     
     db_session.add_all([seller_1, seller_2])
     await db_session.flush()
@@ -68,9 +68,9 @@ async def test_get_single_seller(db_session, async_client):
     assert response.json() == {
         "first_name": "Anton",
         "last_name": "Antonov",
-        #"password": "104aaa",
         "email": "aaa@mts.ru",
-        "id": seller_1.id
+        "id": seller_1.id,
+        "books": []
     }
 
 

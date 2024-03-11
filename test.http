@@ -58,7 +58,7 @@ content-type: application/json
 {
     "title": "Right Code",
     "author": "Robert Martin",
-    "pages": 121,
+    "pages": 131,
     "year": 2008,
     "seller_id": 1
 }

@@ -127,17 +127,17 @@ async def test_update_book(db_session, async_client):
     # Создаем Продавца и книгу вручную, а не через ручку, чтобы нам не попасться на ошибки которые
     # могут случиться в POST ручках
     
-    _seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")
-    db_session.add(_seller)
+    seller = books_sellers.Seller(first_name="Anton", last_name="Antonov", password="104aaa", email="aaa@mts.ru")
+    db_session.add(seller)
     await db_session.flush()
 
-    book = books_sellers.Book(author="Pushkin", title="Eugeny Onegin", year=2001, count_pages=104, seller_id=_seller.id)
+    book = books_sellers.Book(author="Pushkin", title="Eugeny Onegin", year=2001, count_pages=104, seller_id=seller.id)
     db_session.add(book)
     await db_session.flush()
 
     response = await async_client.put(
         f"/api/v1/books/{book.id}",
-        json={"title": "Mziri", "author": "Lermontov", "count_pages": 100, "year": 2007, "seller_id": _seller.id},
+        json={"title": "Mziri", "author": "Lermontov","pages": 100, "year": 2007, "seller_id": seller.id},
     )
     assert response.status_code == status.HTTP_200_OK
     await db_session.flush()
@@ -148,5 +148,5 @@ async def test_update_book(db_session, async_client):
     assert res.author == "Lermontov"
     assert res.count_pages == 100
     assert res.year == 2007
-    assert res.seller_id == _seller.id
+    assert res.seller_id == seller.id
     assert res.id == book.id
